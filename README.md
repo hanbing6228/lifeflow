@@ -28,9 +28,10 @@ npm run ios                              # 打开 Xcode
 
 | 变量 | 说明 |
 |------|------|
-| `GEMINI_API_KEY` | 与 `inner-shelter-ios` 项目相同即可（[Google AI Studio](https://aistudio.google.com/apikey)） |
+| `GEMINI_API_KEY` | 可选；与 `inner-shelter-ios` 相同即可（[Google AI Studio](https://aistudio.google.com/apikey)） |
+| `INNER_SHELTER_API_URL` | 可选；未设置 `GEMINI_API_KEY` 时默认走 `https://inner-shelter-ios.vercel.app` 共享 AI 代理 |
 
-添加后 **Redeploy** 一次。验证：`curl https://adhd-flow-ios.vercel.app/api/adhd-flow/health` 应显示 `"gemini":true`。
+未配置 `GEMINI_API_KEY` 时会自动使用 inner-shelter 代理。验证：`curl https://adhd-flow-ios.vercel.app/api/adhd-flow/health` 应显示 `"gemini":true`。
 
 ## iOS 本地 API 地址
 
