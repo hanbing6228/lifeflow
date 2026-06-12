@@ -2,25 +2,55 @@
 
 轻推任务系统 — ADHD 友好计划 App（Capacitor iOS + PWA）
 
-## 在线体验
+| 服务 | 地址 |
+|------|------|
+| **GitHub** | https://github.com/hanbing6228/lifeflow |
+| **线上 PWA** | https://adhd-flow-ios.vercel.app |
+| **Vercel 项目** | [adhd-flow-ios](https://vercel.com/hanbing6228-3362s-projects/adhd-flow-ios) |
+| **API 健康检查** | https://adhd-flow-ios.vercel.app/api/adhd-flow/health |
 
-https://adhd-flow-ios.vercel.app
+`main` 分支 push 到 GitHub 后，Vercel 会自动构建并部署。
 
-## 本地开发
+## 快速开始
 
 ```bash
+git clone https://github.com/hanbing6228/lifeflow.git
+cd lifeflow
 npm install
+cp config.example.js config.local.js   # iOS 本地包需填 API 地址
 npm run sync
-npm run ios          # 打开 Xcode
+npm run ios                              # 打开 Xcode
 ```
 
-## 部署
+## 环境变量（Vercel）
+
+在 [项目 Environment Variables](https://vercel.com/hanbing6228-3362s-projects/adhd-flow-ios/settings/environment-variables) 添加：
+
+| 变量 | 说明 |
+|------|------|
+| `GEMINI_API_KEY` | 与 `inner-shelter-ios` 项目相同即可（[Google AI Studio](https://aistudio.google.com/apikey)） |
+
+添加后 **Redeploy** 一次。验证：`curl https://adhd-flow-ios.vercel.app/api/adhd-flow/health` 应显示 `"gemini":true`。
+
+## iOS 本地 API 地址
+
+`config.local.js`（已 gitignore）：
+
+```javascript
+window.ADHD_FLOW_API = 'https://adhd-flow-ios.vercel.app';
+```
+
+然后 `npm run cap:sync`。
+
+## 部署方式
+
+**推荐（已连通）**：push 到 `main` → Vercel 自动部署。
+
+**手动**：
 
 ```bash
-npm run deploy:api   # Vercel 部署 + 写入 config.local.js
+npm run deploy:api
 ```
-
-在 Vercel 设置 `GEMINI_API_KEY` 后 Redeploy，启用 AI 整理/洞察/日程。
 
 ## 文档
 
@@ -29,7 +59,7 @@ npm run deploy:api   # Vercel 部署 + 写入 config.local.js
 ## 结构
 
 ```
-web/       Web 源码
+web/       Web 源码（PWA + iOS WebView）
 api/       Vercel Serverless AI 代理
 ios/       Capacitor Xcode 工程
 scripts/   sync / deploy 脚本
